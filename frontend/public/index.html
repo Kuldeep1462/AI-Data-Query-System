@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="AI-powered natural language data query system for wealth management" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="AI Data Query System" />
+    <meta property="og:description" content="Natural Language Cross-Platform Data Query RAG Agent" />
+    <meta property="og:type" content="website" />
+    
+    <title>AI Data Query System - Natural Language Analytics</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- Loading indicator for initial app load -->
+    <script>
+      // Show loading indicator while React app loads
+      if (!window.React) {
+        document.getElementById('root').innerHTML = `
+          <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+          ">
+            <div style="text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+              <h1 style="color: #2563eb; margin-bottom: 0.5rem;">AI Data Query System</h1>
+              <p style="color: #64748b;">Loading application...</p>
+            </div>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>
