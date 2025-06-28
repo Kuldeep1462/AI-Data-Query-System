@@ -68,11 +68,15 @@ class MongoDB:
         try:
             client_profiles = self.get_collection("client_profiles")
             
-            # Check if data already exists
-            count = await client_profiles.count_documents({})
-            if count > 0:
-                logger.info(f"📊 Found {count} existing client profiles")
-                return
+            # Check if data already exists - properly handle the count
+            try:
+                count = await client_profiles.count_documents({})
+                if count > 0:
+                    logger.info(f"📊 Found {count} existing client profiles")
+                    return
+            except Exception as count_error:
+                logger.warning(f"⚠️ Could not check existing data count: {count_error}")
+                # Continue with sample data insertion
             
             # Insert sample client profiles
             sample_clients = [

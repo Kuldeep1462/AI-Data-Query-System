@@ -137,8 +137,12 @@ async def get_query_stats(app_request: Request):
         mongodb = app_request.app.state.mongodb
         mysql = app_request.app.state.mysql
         
-        # Get counts from databases
-        client_count = await mongodb.get_collection("client_profiles").count_documents({})
+        # Get counts from databases with proper error handling
+        try:
+            client_count = await mongodb.get_collection("client_profiles").count_documents({})
+        except Exception as db_error:
+            logger.warning(f"⚠️ Could not get client count: {db_error}")
+            client_count = 0
         
         stats = {
             "total_clients": client_count,

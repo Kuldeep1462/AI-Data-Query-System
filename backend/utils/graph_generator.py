@@ -20,9 +20,17 @@ class GraphGenerator:
     """
     
     def __init__(self):
-        # Set style for better looking charts
-        plt.style.use('seaborn')
-        sns.set_palette("husl")
+        # Set style for better looking charts - use default style to avoid compatibility issues
+        try:
+            plt.style.use('default')  # Use default style instead of seaborn
+        except Exception as e:
+            logger.warning(f"Could not set matplotlib style: {e}")
+        
+        try:
+            sns.set_palette("husl")
+        except Exception as e:
+            logger.warning(f"Could not set seaborn palette: {e}")
+        
         logger.info("✅ GraphGenerator initialized")
     
     def create_bar_chart(self, data: Dict[str, Any], title: str = "Bar Chart") -> str:
