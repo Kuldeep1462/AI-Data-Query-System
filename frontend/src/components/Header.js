@@ -16,14 +16,6 @@ const Header = () => {
               <span className="nav-icon">🏠</span>
               Home
             </a>
-            <a href="#docs" className="nav-link">
-              <span className="nav-icon">📚</span>
-              Docs
-            </a>
-            <a href="#help" className="nav-link">
-              <span className="nav-icon">❓</span>
-              Help
-            </a>
           </div>
         </nav>
 

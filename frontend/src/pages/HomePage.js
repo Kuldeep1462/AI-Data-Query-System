@@ -74,6 +74,8 @@ const HomePage = () => {
 
       console.log("🔍 Processing query:", query)
       const response = await apiService.processQuery(query)
+      
+      console.log("📡 API Response:", response)
 
       if (response.success) {
         setResults({
@@ -81,6 +83,12 @@ const HomePage = () => {
           tableData: response.table_data,
           chartData: response.chart_data,
           timestamp: new Date().toISOString(),
+        })
+
+        console.log("📊 Set results:", {
+          textResponse: response.text_response,
+          tableData: response.table_data,
+          chartData: response.chart_data,
         })
 
         // Add to history

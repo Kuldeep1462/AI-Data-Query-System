@@ -89,14 +89,14 @@ Create `backend/.env`:
 
 \`\`\`env
 # Database Configuration
-MONGODB_URL="mongodb+srv://valuefy:kuldeep01@cluster0.hd0i76u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGODB_URL="your database "
 MYSQL_HOST="localhost"
 MYSQL_USER="root"
 MYSQL_PASSWORD="root"
 MYSQL_DATABASE="wealth_portfolio"
 
 # AI Configuration
-GEMINI_API_KEY="AIzaSyA6YbOvbnnDMzzzjDdBwkYz36gJZz39eMw"
+GEMINI_API_KEY="your appi key of gemni"
 
 # Application Configuration
 APP_NAME="AI Data Query System"

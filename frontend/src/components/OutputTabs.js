@@ -9,6 +9,10 @@ import ChartOutput from "./outputs/ChartOutput"
 const OutputTabs = ({ results }) => {
   const { activeTab, setActiveTab } = useQuery()
 
+  // Debug logging
+  console.log('OutputTabs results:', results)
+  console.log('OutputTabs tableData:', results?.tableData)
+
   const tabs = [
     {
       id: "text",

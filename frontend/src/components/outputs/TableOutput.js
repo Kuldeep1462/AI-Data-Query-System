@@ -16,15 +16,47 @@ const TableOutput = ({ data }) => {
   const tableData = data?.tableData || { columns: [], rows: [] }
   const { columns, rows } = tableData
 
+  // Log the data received for debugging
+  console.log('TableOutput rows:', rows)
+  console.log('TableOutput first row:', rows[0])
+  console.log('TableOutput columns:', columns)
+
   // Filter and sort data
   const processedData = useMemo(() => {
     let filteredRows = rows
 
     // Apply filter
     if (filterText) {
-      filteredRows = rows.filter((row) =>
-        Object.values(row).some((value) => String(value).toLowerCase().includes(filterText.toLowerCase())),
-      )
+      const searchTerm = filterText.trim().toLowerCase()
+      console.log('🔍 Searching for:', searchTerm)
+      
+      filteredRows = rows.filter((row) => {
+        const matches = Object.entries(row).some(([key, value]) => {
+          const stringValue = String(value).toLowerCase()
+          
+          // For exact field matches, check if the search term is contained within the field
+          // This allows partial matches but within the context of the field
+          if (stringValue.includes(searchTerm)) {
+            // Additional check: make sure it's not a false positive
+            // Split the field value into words and check if any word starts with the search term
+            const words = stringValue.split(/[\s,]+/)
+            const wordMatch = words.some(word => word.startsWith(searchTerm) || word === searchTerm)
+            
+            if (wordMatch) {
+              console.log(`✅ Match found in ${key}: "${value}" for search term "${searchTerm}"`)
+            }
+            return wordMatch
+          }
+          return false
+        })
+        
+        if (matches) {
+          console.log('📋 Row matches:', row)
+        }
+        return matches
+      })
+      
+      console.log(`🔍 Search results: ${filteredRows.length} rows found`)
     }
 
     // Apply sort
@@ -33,9 +65,9 @@ const TableOutput = ({ data }) => {
         const aValue = a[sortConfig.key]
         const bValue = b[sortConfig.key]
 
-        // Handle numeric values (remove currency symbols and commas)
-        const aNumeric = String(aValue).replace(/[₹,]/g, "")
-        const bNumeric = String(bValue).replace(/[₹,]/g, "")
+        // Handle numeric values (remove currency symbols, commas, and spaces)
+        const aNumeric = String(aValue).replace(/[₹,\s]/g, "")
+        const bNumeric = String(bValue).replace(/[₹,\s]/g, "")
 
         if (!isNaN(aNumeric) && !isNaN(bNumeric)) {
           return sortConfig.direction === "asc"
@@ -44,8 +76,11 @@ const TableOutput = ({ data }) => {
         }
 
         // Handle string values
-        if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1
-        if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1
+        const aStr = String(aValue).toLowerCase()
+        const bStr = String(bValue).toLowerCase()
+        
+        if (aStr < bStr) return sortConfig.direction === "asc" ? -1 : 1
+        if (aStr > bStr) return sortConfig.direction === "asc" ? 1 : -1
         return 0
       })
     }
@@ -102,6 +137,15 @@ const TableOutput = ({ data }) => {
           <span className="data-count">
             📊 Showing {paginatedData.length} of {processedData.length} records
             {filterText && ` (filtered from ${rows.length} total)`}
+            {filterText && (
+              <button 
+                onClick={() => setFilterText("")} 
+                className="clear-filter-button"
+                title="Clear filter"
+              >
+                ✕
+              </button>
+            )}
           </span>
         </div>
 

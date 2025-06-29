@@ -1456,3 +1456,30 @@ textarea:focus-visible {
   white-space: nowrap;
   border: 0;
 }
+
+.data-count {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.clear-filter-button {
+  background: var(--warning-color);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.clear-filter-button:hover {
+  background: #d97706;
+}
